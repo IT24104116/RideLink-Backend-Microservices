@@ -19,11 +19,13 @@ public class RideController {
 
     @PostMapping("/request")
     public ResponseEntity<ApiResponse<Ride>> requestRide(@RequestBody Map<String, String> request) {
-        Ride ride = rideService.requestRide(request.get("passengerId"), request.get("pickup"), request.get("destination"));
+        String pickup = request.getOrDefault("pickupLocation", request.get("pickup"));
+        String destination = request.getOrDefault("dropoffLocation", request.get("destination"));
+        Ride ride = rideService.requestRide(request.get("passengerId"), pickup, destination);
         return ResponseEntity.ok(ApiResponse.success(ride, "Ride requested and driver assigned successfully."));
     }
 
-    @PatchMapping("/{rideId}/status")
+    @PutMapping("/{rideId}/status")
     public ResponseEntity<ApiResponse<Ride>> updateRideStatus(@PathVariable String rideId, @RequestBody Map<String, Object> request) {
         RideStatus newStatus = RideStatus.valueOf((String) request.get("status"));
         Double amount = request.containsKey("amount") ? Double.valueOf(request.get("amount").toString()) : null;

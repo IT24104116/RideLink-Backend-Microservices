@@ -12,6 +12,6 @@ public interface DriverServiceClient {
     @GetMapping("/api/v1/drivers/available")
     ApiResponse<Map<String, Object>> getAvailableDriver(@RequestParam("location") String location);
 
-    @PatchMapping("/api/v1/drivers/{driverId}/status")
+    @PutMapping("/api/v1/drivers/{driverId}/status")
     ApiResponse<Void> updateDriverStatus(@PathVariable("driverId") String driverId, @RequestParam("status") String status);
 }

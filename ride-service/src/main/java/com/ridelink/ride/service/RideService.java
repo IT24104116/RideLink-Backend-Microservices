@@ -40,7 +40,7 @@ public class RideService {
         ApiResponse<Map<String, Object>> driverResponse = driverServiceClient.getAvailableDriver(pickupLocation);
         
         if (driverResponse.getData() == null || !driverResponse.isSuccess()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "NO_AVAILABLE_DRIVER");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No available drivers found in the area");
         }
 
         String driverId = (String) driverResponse.getData().get("driverId");
@@ -86,14 +86,16 @@ public class RideService {
     }
 
     private void validateStateTransition(RideStatus current, RideStatus next) {
+        if (current == RideStatus.COMPLETED || current == RideStatus.CANCELLED) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot modify status for an already completed or cancelled ride");
+        }
+        
         boolean valid = false;
         switch (current) {
             case REQUESTED: valid = (next == RideStatus.ASSIGNED || next == RideStatus.CANCELLED); break;
             case ASSIGNED: valid = (next == RideStatus.ACCEPTED || next == RideStatus.CANCELLED); break;
             case ACCEPTED: valid = (next == RideStatus.IN_PROGRESS || next == RideStatus.CANCELLED); break;
             case IN_PROGRESS: valid = (next == RideStatus.COMPLETED); break;
-            case COMPLETED:
-            case CANCELLED: valid = false; break;
         }
 
         if (!valid) {

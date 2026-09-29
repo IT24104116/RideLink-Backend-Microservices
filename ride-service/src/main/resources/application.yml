@@ -5,7 +5,7 @@ spring:
     name: ride-service
   data:
     mongodb:
-      uri: mongodb+srv://pasinduchamikaragunasekara_db_user:6heYJj5NRxjip5YZ@cluster0.dhbsycl.mongodb.net/ride_db?appName=Cluster0
+      uri: mongodb+srv://pasinduchamikaragunasekara_db_user:6heYJj5NRxjip5YZ@cluster0.dhbsycl.mongodb.net/ride_db?appName=Cluster0&tls=true&tlsAllowInvalidCertificates=true
 springdoc:
   swagger-ui:
     path: /swagger-ui/index.html
