@@ -1,0 +1,11 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: driver-service
+  data:
+    mongodb:
+      uri: mongodb+srv://it24104369_db_user:rtLP5QF2146bHwES@cluster0.pgvobvf.mongodb.net/driver_db?appName=Cluster0&tls=true&tlsAllowInvalidCertificates=true
+springdoc:
+  swagger-ui:
+    path: /swagger-ui/index.html
