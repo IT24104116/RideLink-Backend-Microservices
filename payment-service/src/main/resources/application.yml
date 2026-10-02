@@ -1,0 +1,11 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: payment-service
+  data:
+    mongodb:
+      uri: mongodb+srv://anudhaumavin0_db_user:rD3vyizKrXpd4RZV@cluster0.rizvhgw.mongodb.net/payment_db?appName=Cluster0
+springdoc:
+  swagger-ui:
+    path: /swagger-ui/index.html
